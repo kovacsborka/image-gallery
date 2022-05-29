@@ -27,7 +27,9 @@ const swiperSlideComponent = ({filename, title}) => {
 const formComponent = () => {
     return `
         <form action="" id="form">
-            <input type="file" name="image">
+            <h3>Upload your image!</h3>
+            <input type="file" name="image" id="fileupload" hidden>
+            <label for="fileupload">Choose your file!</label>
             <input type="text" placeholder="Title" name="title">
             <input type="text" placeholder="Photographer" name="photographer">
             <button>Submit</button>
@@ -40,10 +42,11 @@ const loadEvent = async () => {
 
     const rootElement = document.getElementById("root")
     const result = await parseJSON("/image-list")
-
+    
     rootElement.insertAdjacentHTML("beforeend", swiperComponent(result, swiperSlideComponent), )
-
     rootElement.insertAdjacentHTML("beforeend", formComponent())
+    
+
 
     const swiper = new Swiper(".swiper", {
         loop: true
@@ -55,7 +58,7 @@ const loadEvent = async () => {
 
     const formElement = document.getElementById("form");
     formElement.addEventListener("submit", e => {
-        e.preventDefault();
+        // e.preventDefault();
        /*  console.dir(e); */
 
         const formData = new FormData() 
